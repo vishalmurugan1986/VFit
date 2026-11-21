@@ -1,0 +1,14 @@
+import { useEffect, useState } from 'react'
+
+/** Current time, refreshed every `intervalMs` while `enabled`. */
+export function useNow(intervalMs = 1000, enabled = true): number {
+  const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    if (!enabled) return
+    const tick = () => setNow(Date.now())
+    tick()
+    const id = setInterval(tick, intervalMs)
+    return () => clearInterval(id)
+  }, [intervalMs, enabled])
+  return now
+}

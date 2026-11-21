@@ -1,0 +1,357 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * VFit design tokens, taken from the Apple Fitness iOS Figma file (Community):
+ * dark is the file's own palette (bg/primary-base #000, bg/primary-elevated #1c1c1e,
+ * label/primary #fff, system/grey #8e8e93, grey2 #636366, grey3 #464649, and the
+ * app-fitness ring colours move #fa114f, exercise/accent #a6ff00, stand #00fff6).
+ * Light is the matching iOS light system palette, with deeper ring colours so text stays readable.
+ * Accent fills always carry --on-accent text; accent-coloured text uses --accent-ink.
+ * Features: strength = Exercise green, food = Move red, cardio = Stand cyan, body = orange, supplements = yellow.
+ */
+:root {
+  color-scheme: light;
+  --page: #f2f2f7;
+  --surface: #ffffff;
+  --surface-2: #e9e9ee;
+  --surface-3: #d1d1d6;
+  --ink: #000000;
+  --ink-2: #6c6c70;
+  --muted: #8e8e93;
+  --grid: #e5e5ea;
+  --baseline: #c7c7cc;
+  --line: rgb(60 60 67 / 0.18);
+  --accent: #a6ff00;
+  --accent-hover: #97ec00;
+  --on-accent: #000000;
+  --accent-ink: #3d7a00;
+  --accent-soft: #eefbd6;
+  --accent-line: #8fd400;
+  --bar: rgb(249 249 249 / 0.94);
+  --bar-line: rgb(60 60 67 / 0.29);
+  /* iOS fills: controls (segmented track, chips, gray buttons) and their pressed step */
+  --fill: rgb(118 118 128 / 0.12);
+  --fill-2: rgb(118 118 128 / 0.2);
+  --thumb: #ffffff;
+  --scrim: rgb(0 0 0 / 0.4);
+  --move: #e8003f;
+  --exercise: #3d8500;
+  --stand: #007a76;
+  --strength: #3d8500;
+  --cardio: #007a76;
+  --body: #d97400;
+  --nutrition: #e8003f;
+  --supplement: #b88000;
+  --bulk: #d97400;
+  --maingain: #007a76;
+  --cut: #e8003f;
+  --good: #34c759;
+  --good-ink: #248a3d;
+  --warning: #ff9500;
+  --critical: #ff3b30;
+  --bad-ink: #d70015;
+  --shadow: none;
+}
+
+.dark {
+  color-scheme: dark;
+  --page: #000000;
+  --surface: #1c1c1e;
+  --surface-2: #2c2c2e;
+  --surface-3: #3a3a3c;
+  --ink: #ffffff;
+  --ink-2: #8e8e93;
+  --muted: #636366;
+  --grid: #2c2c2e;
+  --baseline: #464649;
+  --line: rgb(84 84 88 / 0.6);
+  --accent: #a6ff00;
+  --accent-hover: #b8ff33;
+  --on-accent: #000000;
+  --accent-ink: #a6ff00;
+  --accent-soft: rgb(166 255 0 / 0.12);
+  --accent-line: rgb(166 255 0 / 0.5);
+  --bar: rgb(28 28 30 / 0.86);
+  --bar-line: #38383a;
+  --fill: rgb(118 118 128 / 0.24);
+  --fill-2: rgb(118 118 128 / 0.36);
+  --thumb: #636366;
+  --scrim: rgb(0 0 0 / 0.6);
+  --move: #fa114f;
+  --exercise: #a6ff00;
+  --stand: #00fff6;
+  --strength: #a6ff00;
+  --cardio: #00fff6;
+  --body: #ff9f0a;
+  --nutrition: #fa114f;
+  --supplement: #ffd60a;
+  --bulk: #ff9f0a;
+  --maingain: #00fff6;
+  --cut: #fa114f;
+  --good: #30d158;
+  --good-ink: #30d158;
+  --warning: #ff9f0a;
+  --critical: #ff453a;
+  --bad-ink: #ff453a;
+  --shadow: none;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-grid: var(--grid);
+  --color-baseline: var(--baseline);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+  --color-move: var(--move);
+  --color-exercise: var(--exercise);
+  --color-stand: var(--stand);
+  --color-strength: var(--strength);
+  --color-cardio: var(--cardio);
+  --color-nutrition: var(--nutrition);
+  --color-supplement: var(--supplement);
+  --color-good: var(--good);
+  --color-good-ink: var(--good-ink);
+  --color-warning: var(--warning);
+  --color-critical: var(--critical);
+  --color-bad-ink: var(--bad-ink);
+  --color-fill: var(--fill);
+  --color-fill-2: var(--fill-2);
+  --color-thumb: var(--thumb);
+  --color-bar: var(--bar);
+  --color-bar-line: var(--bar-line);
+}
+
+@utility shadow-soft {
+  box-shadow: var(--shadow);
+}
+
+@theme {
+  /* SF Pro on Apple devices (the design's font); Inter, the closest open match, everywhere else. */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
+  /* Numbers use SF Pro Rounded, as in the design. */
+  --font-rounded: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Inter Variable', system-ui, sans-serif;
+
+  /*
+   * Type ramp: the iOS text styles at their default (Large) sizes. Every piece of text uses one
+   * of these (text-largetitle … text-caption2); weights can still be raised with font-semibold etc.
+   */
+  --text-largetitle: 34px;
+  --text-largetitle--line-height: 41px;
+  --text-largetitle--letter-spacing: -0.012em;
+  --text-largetitle--font-weight: 700;
+  --text-title1: 28px;
+  --text-title1--line-height: 34px;
+  --text-title1--letter-spacing: -0.01em;
+  --text-title1--font-weight: 700;
+  --text-title2: 22px;
+  --text-title2--line-height: 28px;
+  --text-title2--letter-spacing: -0.008em;
+  --text-title2--font-weight: 700;
+  --text-title3: 20px;
+  --text-title3--line-height: 25px;
+  --text-title3--letter-spacing: -0.006em;
+  --text-title3--font-weight: 600;
+  --text-headline: 17px;
+  --text-headline--line-height: 22px;
+  --text-headline--letter-spacing: -0.01em;
+  --text-headline--font-weight: 600;
+  --text-body: 17px;
+  --text-body--line-height: 22px;
+  --text-body--letter-spacing: -0.01em;
+  --text-callout: 16px;
+  --text-callout--line-height: 21px;
+  --text-callout--letter-spacing: -0.008em;
+  --text-subhead: 15px;
+  --text-subhead--line-height: 20px;
+  --text-subhead--letter-spacing: -0.006em;
+  --text-footnote: 13px;
+  --text-footnote--line-height: 18px;
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+  --text-caption2: 11px;
+  --text-caption2--line-height: 13px;
+  --text-caption2--letter-spacing: 0.01em;
+
+  /* Motion: state feedback, element transitions, large surfaces. */
+  --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-page-in: page-in 0.28s var(--ease-ios) both;
+  --animate-shimmer: shimmer 1.4s ease-in-out infinite;
+}
+
+@layer base {
+  html {
+    background-color: var(--page);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+  body {
+    min-height: 100dvh;
+    background-color: var(--page);
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Keep the page from scrolling behind an open sheet. */
+  :root:has(dialog[open]) {
+    overflow: hidden;
+  }
+  button,
+  [role='button'],
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+  }
+  input,
+  select,
+  textarea {
+    /* 16px stops iOS Safari zooming in when a field gets focus. */
+    font-size: 16px;
+  }
+}
+
+/* Native <dialog> as a bottom sheet on phones and a centered panel on wider screens. */
+dialog.sheet {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  background: transparent;
+  color: var(--ink);
+  align-items: flex-end;
+  justify-content: center;
+  /* Browsers make modal dialogs scrollable; the panel scrolls itself, so the dialog never should. */
+  overflow: hidden;
+}
+dialog.sheet[open] {
+  display: flex;
+}
+dialog.sheet::backdrop {
+  background: var(--scrim);
+  animation: fade-in 0.25s ease-out;
+}
+.sheet-panel {
+  width: 100%;
+  max-width: 34rem;
+  max-height: 92dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: 16px 16px 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  animation: sheet-in 0.36s var(--ease-ios);
+}
+@media (min-width: 640px) {
+  dialog.sheet {
+    align-items: center;
+    padding: 2rem;
+  }
+  .sheet-panel {
+    border-radius: 16px;
+    max-height: 85dvh;
+    padding-bottom: 0;
+  }
+}
+@keyframes sheet-in {
+  from {
+    transform: translateY(40%);
+    opacity: 0.4;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@media (min-width: 640px) {
+  @keyframes sheet-in {
+    from {
+      transform: translateY(12px) scale(0.98);
+      opacity: 0;
+    }
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+/* A new screen settles in: a short rise and fade, so moving between tabs feels connected. */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes toast-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.animate-toast {
+  animation: toast-in 0.16s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet-panel,
+  .animate-toast,
+  .animate-page-in,
+  .animate-shimmer,
+  dialog.sheet::backdrop {
+    animation: none;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Recharts: keep focus rings off the SVG surface; hairline, recessive chrome. */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
